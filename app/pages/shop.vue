@@ -38,11 +38,6 @@ function resetFilters() {
 </script>
 <template>
   <div class="bg-gray-950 text-white font-nunito min-h-screen">
-    <!-- ========== NAVBAR ========== -->
-    <NavBar />
-    <div v-if="help.isCartOpen.value">
-      <CartComponent />
-    </div>
     <!-- ========== PAGE HEADER ========== -->
     <div class="pt-24 pb-10 bg-gray-900 border-b border-white/5">
       <div class="max-w-6xl mx-auto px-6">

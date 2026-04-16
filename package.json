@@ -17,6 +17,7 @@
     "vue": "^3.5.32"
   },
   "dependencies": {
+    "bcrypt-ts": "^8.0.1",
     "better-sqlite3": "^12.9.0",
     "drizzle-orm": "^0.45.2"
   }

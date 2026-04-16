@@ -1,7 +1,9 @@
-import { loginTable } from "../db/schema"
-import { useDrizzle } from "../utils/drizzle"
-export default defineEventHandler(async (event) => {
-    const login = useDrizzle().select().from(loginTable).all()
+// import { loginTable } from "../db/schema"
+// import { useDrizzle } from "../utils/drizzle"
 
-    return login
+const table = ['yessss', 'nooooo', 'bokooo', 'budyyy']
+export default defineEventHandler(async (event) => {
+    // const login = useDrizzle().select().from(loginTable).all()
+
+    return table
 })

@@ -1,10 +1,5 @@
 <template>
   <div class="bg-gray-950 text-white font-nunito min-h-screen">
-
-    <NavBar />
-    <div v-if="help.isCartOpen.value">
-      <CartComponent />
-    </div>
     <!-- ========== HERO ========== -->
     <section class="relative overflow-hidden pt-32 pb-24 bg-gradient-to-b from-gray-900 to-gray-950">
       <!-- Twinkling stars -->
