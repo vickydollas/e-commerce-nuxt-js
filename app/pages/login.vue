@@ -35,7 +35,7 @@
         </div>
 
         <!-- ── Login Card ── -->
-        <div class="bg-gray-900/80 rounded-2xl p-20 backdrop-blur-sm">
+        <div class="bg-gray-900/80 border border-white/8 rounded-2xl p-8 backdrop-blur-sm">
 
           <form @submit.prevent="handleLogin" novalidate>
 
@@ -45,7 +45,7 @@
                 Username
               </label>
               <div class="relative">
-                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                   <circle cx="12" cy="7" r="4"/>
                 </svg>
@@ -77,7 +77,7 @@
                 </a>
               </div>
               <div class="relative">
-                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <rect x="3" y="11" width="18" height="11" rx="2"/>
                   <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                 </svg>
@@ -87,14 +87,14 @@
                   :type="showPassword ? 'text' : 'password'"
                   placeholder="Enter your password"
                   autocomplete="current-password"
-                  class="input-field pr-9"
+                  class="input-field pr-11"
                   :class="errors.password ? 'border-red-500/60 focus:border-red-500/80' : ''"
                   @input="errors.password = ''"
                 />
                 <!-- Show / hide toggle -->
                 <button
                   type="button"
-                  class="absolute right-1/4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-amber-400 transition-colors"
+                  class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-500 hover:text-amber-400 transition-colors"
                   @click="showPassword = !showPassword"
                   :aria-label="showPassword ? 'Hide password' : 'Show password'"
                 >
@@ -204,9 +204,9 @@
         <!-- Sign up link -->
         <p class="text-center text-sm text-gray-500 mt-6">
           Don't have an account?
-          <NuxtLink to="/register" class="text-amber-400 font-semibold hover:text-amber-300 transition-colors">
+          <RouterLink to="/register" class="text-amber-400 font-semibold hover:text-amber-300 transition-colors">
             Create one free →
-          </NuxtLink>
+          </RouterLink>
         </p>
 
       </div>
@@ -220,7 +220,7 @@ import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 
 definePageMeta({
-    layout: false
+  layout: false
 })
 const router = useRouter()
 

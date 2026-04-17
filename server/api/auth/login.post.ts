@@ -1,5 +1,6 @@
 import { compare } from "bcrypt-ts"
 import { eq } from "drizzle-orm"
+import jwt from 'jsonwebtoken'
 // import { loginTable } from "~~/server/db/schema"
 // import { tables, useDrizzle } from "~~/server/utils/drizzle"
 
@@ -27,6 +28,9 @@ export default defineEventHandler(async (event) => {
             message: 'Login denied'
         })
     }
+    const token = jwt.sign({id: user.id, username: user.username}, process.env.JWT_PRIVATE!, {
+        expiresIn: '24h'
+    })
 
-    return { status: true }
+    return { token }
 })
