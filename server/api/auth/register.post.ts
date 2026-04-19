@@ -18,5 +18,5 @@ export default defineEventHandler(async (event) => {
         username: username,
         password: hashedPassword
     }).returning()
-    return inserResult[0]
+    return inserResult
 })
