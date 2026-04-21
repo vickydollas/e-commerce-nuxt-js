@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import type { AddToCart } from "../types/addToCart";
+import type { AddToCart } from "../../types/addToCart";
 const mobileMenuOpen = ref(false);
 const cartCount = ref(0);
 const isCartOpen = ref(false);

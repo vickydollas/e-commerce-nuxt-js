@@ -42,7 +42,7 @@
             <!-- Username -->
             <div class="mb-5">
               <label for="username" class="block text-xs font-semibold text-gray-400 mb-2 tracking-wide uppercase font-syne">
-                Username
+                Username {{ error }}
               </label>
               <div class="relative">
                 <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -215,7 +215,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -240,6 +240,7 @@ const showPassword = ref(false)
 const isLoading    = ref(false)
 const loginSuccess = ref(false)
 const loginError   = ref('')
+const error = ref('')
 
 // ── Decorative background stars ────────────────────────────────────────────
 const bgStars = [
@@ -271,36 +272,37 @@ function validate() {
 
   return valid
 }
-
+const toast = useToast()
 // ── Submit handler ─────────────────────────────────────────────────────────
 async function handleLogin() {
   loginError.value   = ''
   loginSuccess.value = false
 
-  if (!validate()) return
+  // if (!validate()) return
 
-  isLoading.value = true
 
   try {
-    // ── TODO: replace with your real API call ──────────────────────────────
-    // Example:
-    // const res = await fetch('http://localhost:8000/api/v1/auth/login/', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ username: form.username, password: form.password }),
-    // })
-    // if (!res.ok) throw new Error('Invalid credentials')
-    // const data = await res.json()
-    // localStorage.setItem('token', data.token)
-    // ──────────────────────────────────────────────────────────────────────
-
-    // Simulated delay for demo
-    await new Promise(r => setTimeout(r, 1200))
-
-    loginSuccess.value = true
-
+    const res = await $fetch('/api/auth/login', {
+      method: 'POST',
+      body: {username: form.username, password: form.password},
+      async onResponseError({response}){
+        if (response.status === 401) {
+          loginError.value = (response._data).message
+          return
+        }
+      }
+    })
+    if(!res) toast.error({title: 'Login failure', message: 'Failed to login'})
+    if(res) toast.success({title: 'Login success', message: 'Logged in successfully'})
+    // await new Promise(r => setTimeout(r, 1200))
+    if (res.token) {
+     useCookie("jwt_token").value = res.token
+     console.log(res.token)
+    }else {
+      console.log("there was an issue with the body")
+    }
     // Redirect after short delay
-    setTimeout(() => router.push('/'), 1500)
+    setTimeout(() => navigateTo('/'), 1000)
 
   } catch (err) {
     loginError.value = 'Incorrect username or password. Please try again.'

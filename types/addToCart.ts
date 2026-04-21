@@ -10,3 +10,7 @@ export interface AddToCart {
   bg: string
   quantity: number
 }
+export interface jwtUserInfo {
+  id: number
+  username: string
+}

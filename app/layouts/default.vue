@@ -1,7 +1,24 @@
 <script setup lang="ts">
 // import { useRoute } from 'vue-router'
 import useBasic from "../stores/useBasic";
+import type { jwtUserInfo } from "~~/types/addToCart";
 
+const user = useCookie("jwt_token");
+const userDetail = ref<jwtUserInfo | null>(null);
+onMounted(async () => {
+  const token = useCookie("jwt_token");
+  if (!token) return;
+  const res = await $fetch("/api/auth/verifyToken", {
+    method: "POST",
+    body: { token: token.value },
+  });
+  if (!res) return;
+
+  userDetail.value = res.user;
+});
+const logout = ref(false);
+const toggleLogout = () => (logout.value = !logout.value);
+const closeLogout = () => (logout.value = false);
 const help = useBasic();
 const openCart = () => {
   help.isCartOpen.value = !help.isCartOpen.value;
@@ -14,6 +31,9 @@ const isActive = (routePath: string): boolean => {
 </script>
 <template>
   <div>
+    <div v-if="user && logout">
+      <LogoutModal @cancel="closeLogout" />
+    </div>
     <nav
       class="fixed top-0 left-0 right-0 z-50 bg-gray-950/80 backdrop-blur-md border-b border-white/5"
     >
@@ -30,7 +50,9 @@ const isActive = (routePath: string): boolean => {
               stroke-width="0.5"
             />
           </svg>
-          <span class="font-syne text-xl text-white font-extrabold tracking-tight">
+          <span
+            class="font-syne text-xl text-white font-extrabold tracking-tight"
+          >
             Rising<span class="text-amber-400">Star</span>
           </span>
         </RouterLink>
@@ -82,11 +104,19 @@ const isActive = (routePath: string): boolean => {
             </span>
           </button>
           <button
+            @click="toggleLogout"
+            v-if="user"
             class="bg-amber-400 hover:bg-amber-300 text-gray-900 text-sm font-bold px-5 py-2 rounded-full transition-colors font-syne"
           >
-            Sign In
+            Sign out
           </button>
-
+          <NuxtLink
+            v-if="!user"
+            to="/login"
+            class="bg-amber-400 hover:bg-amber-300 text-gray-900 text-sm font-bold px-5 py-2 rounded-full transition-colors font-syne"
+          >
+            Sign in
+          </NuxtLink>
           <!-- Mobile hamburger -->
           <button
             class="md:hidden p-2 text-gray-400 hover:text-white"

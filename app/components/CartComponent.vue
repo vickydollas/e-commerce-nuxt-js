@@ -7,10 +7,10 @@ const exitCart = () => (help.isCartOpen.value = false);
 // const props = defineProps<{
 //     cartArray: AddToCart[]
 // }>();
-const cartItems = ref(help.cartArray)
+const cartItems = ref(help.cartArray);
 const removeItems = (id: number) => {
-    cartItems.value = cartItems.value.filter(f => f.id !== id)
-}
+  cartItems.value = cartItems.value.filter((f) => f.id !== id);
+};
 </script>
 <template>
   <!-- Teleport renders the drawer at <body> level so it sits above everything -->
@@ -76,12 +76,13 @@ const removeItems = (id: number) => {
             </svg>
             <p class="font-syne font-bold text-gray-400">Your cart is empty</p>
             <p class="text-gray-600 text-sm">Add some items from the shop!</p>
-            <button
+            <NuxtLink
+              to="/shop"
               @click="help.isCartOpen.value = false"
               class="mt-2 bg-amber-400 hover:bg-amber-300 text-gray-900 font-bold font-syne text-sm px-6 py-2.5 rounded-full transition-colors"
             >
               Browse Shop →
-            </button>
+            </NuxtLink>
           </div>
           <TransitionGroup name="item" tag="div">
             <div
@@ -110,22 +111,24 @@ const removeItems = (id: number) => {
               <!-- Qty controls + remove -->
               <div class="flex items-center gap-1.5 flex-shrink-0">
                 <button
-                @click="help.decreaseQuantity(item.id)"
+                  @click="help.decreaseQuantity(item.id)"
                   class="w-6 h-6 rounded-md bg-white/7 border border-white/10 text-gray-300 hover:bg-amber-400/20 hover:border-amber-400/40 hover:text-amber-400 transition-all flex items-center justify-center text-base leading-none font-bold"
                 >
                   −
                 </button>
-                <span class="font-syne font-bold text-white text-sm w-4 text-center">
+                <span
+                  class="font-syne font-bold text-white text-sm w-4 text-center"
+                >
                   {{ item.quantity }}
                 </span>
                 <button
-                @click="help.increaseQuantity(item.id)"
+                  @click="help.increaseQuantity(item.id)"
                   class="w-6 h-6 rounded-md bg-white/7 border border-white/10 text-gray-300 hover:bg-amber-400/20 hover:border-amber-400/40 hover:text-amber-400 transition-all flex items-center justify-center text-base leading-none font-bold"
                 >
                   +
                 </button>
                 <button
-                    @click="removeItems(item.id)"
+                  @click="removeItems(item.id)"
                   class="w-6 h-6 rounded-md border border-red-500/20 text-red-500 hover:bg-red-500/15 hover:border-red-500/50 transition-all flex items-center justify-center text-xs ml-0.5"
                 >
                   ✕

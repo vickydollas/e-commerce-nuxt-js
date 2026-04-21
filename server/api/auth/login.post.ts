@@ -1,6 +1,7 @@
 import { compare } from "bcrypt-ts"
 import { eq } from "drizzle-orm"
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken"
+
 // import { loginTable } from "~~/server/db/schema"
 // import { tables, useDrizzle } from "~~/server/utils/drizzle"
 
@@ -15,7 +16,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const db = useDrizzle()
-    const user = db.select().from(tables.loginTable).where(eq(tables.loginTable.username, username)).limit(1).get()
+    const user = await db.select().from(tables.loginTable).where(eq(tables.loginTable.username, username)).limit(1).get()
     if (!user) {
         throw createError({
             statusCode: 404,
@@ -29,6 +30,7 @@ export default defineEventHandler(async (event) => {
         })
     }
     const token = jwt.sign({id: user.id, username: user.username}, process.env.JWT_PRIVATE!, {
+        algorithm: 'HS256',
         expiresIn: '24h'
     })
 
