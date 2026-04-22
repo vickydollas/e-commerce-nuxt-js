@@ -339,6 +339,7 @@ async function handleLogin() {
   if (!res) return toast.error({ title: 'error', message: 'User registration failed'})
   form.username = "";
   form.password = "";
+  setTimeout(() => navigateTo('/login'), 1500)
 }
 </script>
 

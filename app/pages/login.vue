@@ -297,7 +297,6 @@ async function handleLogin() {
     // await new Promise(r => setTimeout(r, 1200))
     if (res.token) {
      useCookie("jwt_token").value = res.token
-     console.log(res.token)
     }else {
       console.log("there was an issue with the body")
     }
