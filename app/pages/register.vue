@@ -331,15 +331,8 @@ async function handleLogin() {
     // if (form.password) {
         
     // }
-  const res = await $fetch("/api/auth/register", {
-    method: "POST",
-    body: { username: form.username, password: form.password },
-  });
-  if (res) return toast.success({ title: 'Sucess', message: 'Signup successful'})
-  if (!res) return toast.error({ title: 'error', message: 'User registration failed'})
-  form.username = "";
-  form.password = "";
-  setTimeout(() => navigateTo('/login'), 1500)
+  const { signUp } = useAuth();
+  signUp(form.username, form.password)
 }
 </script>
 

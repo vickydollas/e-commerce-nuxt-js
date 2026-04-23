@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import useBasic from "../stores/useBasic";
+import useBasic from "../composables/useBasic";
 
 const help = useBasic();
 const searchQuery = ref("");

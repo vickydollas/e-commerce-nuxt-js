@@ -218,6 +218,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
+import useAuth from '~/composables/useAuth'
 
 definePageMeta({
   layout: false
@@ -279,35 +280,8 @@ async function handleLogin() {
   loginSuccess.value = false
 
   // if (!validate()) return
-
-
-  try {
-    const res = await $fetch('/api/auth/login', {
-      method: 'POST',
-      body: {username: form.username, password: form.password},
-      async onResponseError({response}){
-        if (response.status === 401) {
-          loginError.value = (response._data).message
-          return
-        }
-      }
-    })
-    if(!res) toast.error({title: 'Login failure', message: 'Failed to login'})
-    if(res) toast.success({title: 'Login success', message: 'Logged in successfully'})
-    // await new Promise(r => setTimeout(r, 1200))
-    if (res.token) {
-     useCookie("jwt_token").value = res.token
-    }else {
-      console.log("there was an issue with the body")
-    }
-    // Redirect after short delay
-    setTimeout(() => navigateTo('/'), 1000)
-
-  } catch (err) {
-    loginError.value = 'Incorrect username or password. Please try again.'
-  } finally {
-    isLoading.value = false
-  }
+const { signIn } = useAuth()
+signIn(form.username, form.password)
 }
 </script>
 

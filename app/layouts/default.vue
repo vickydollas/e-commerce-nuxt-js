@@ -1,21 +1,21 @@
 <script setup lang="ts">
 // import { useRoute } from 'vue-router'
-import useBasic from "../stores/useBasic";
-import type { jwtUserInfo } from "~~/types/addToCart";
+import useBasic from "../composables/useBasic";
+// import type { jwtUserInfo } from "~~/types/addToCart";
 
 const user = useCookie("jwt_token");
-const userDetail = ref<jwtUserInfo | null>(null);
-onMounted(async () => {
-  const token = useCookie("jwt_token");
-  if (!token) return;
-  const res = await $fetch("/api/auth/verifyToken", {
-    method: "POST",
-    body: { token: token.value },
-  });
-  if (!res) return;
+// const userDetail = ref<jwtUserInfo | null>(null);
+// onMounted(async () => {
+//   const token = useCookie("jwt_token");
+//   if (!token) return;
+//   const res = await $fetch("/api/auth/verifyToken", {
+//     method: "POST",
+//     body: { token: token.value },
+//   });
+//   if (!res) return;
 
-  userDetail.value = res.user;
-});
+//   userDetail.value = res.user;
+// });
 const logout = ref(false);
 const toggleLogout = () => (logout.value = !logout.value);
 const closeLogout = () => (logout.value = false);

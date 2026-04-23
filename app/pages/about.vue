@@ -261,7 +261,7 @@
 </template>
 
 <script setup lang="ts">
-import useBasic from '../stores/useBasic'
+import useBasic from '../composables/useBasic'
 
 const help = useBasic()
 const heroStars = [

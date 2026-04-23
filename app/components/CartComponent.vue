@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import useBasic from "../stores/useBasic";
+import useBasic from "../composables/useBasic";
 
 const help = useBasic();
 const exitCart = () => (help.isCartOpen.value = false);
