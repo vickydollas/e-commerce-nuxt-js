@@ -14,5 +14,5 @@ export default defineEventHandler(async (event) => {
             user
         }
     }
-    throw createError({statusCode: 401})
+    if (!user) throw createError({ statusCode: 401 })
 })
