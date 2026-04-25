@@ -14,5 +14,5 @@ export default defineEventHandler(async (event) => {
             user
         }
     }
-    if (!user) throw createError({ statusCode: 401 })
+    throw createError({ statusCode: 401, message: "Invalid token"s })
 })
