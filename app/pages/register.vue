@@ -325,7 +325,6 @@ function validate() {
 
   return valid;
 }
-const toast = useToast()
 // ── Submit handler ─────────────────────────────────────────────────────────
 async function handleLogin() {
     // if (form.password) {
