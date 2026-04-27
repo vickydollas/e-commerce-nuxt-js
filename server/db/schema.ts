@@ -14,4 +14,5 @@ export const cartTable = sqliteTable('cart', {
     emoji: text('emoji').notNull(),
     badge: text('badge').notNull(),
     stock: text('stock').notNull(),
+    quantity: int('quantity').default(1).notNull()
 })

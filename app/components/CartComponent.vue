@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import useBasic from "../composables/useBasic";
-
+import {useBasic} from "../composables/useBasic";
 const help = useBasic();
 const exitCart = () => (help.isCartOpen.value = false);
 // const props = defineProps<{
@@ -137,6 +136,7 @@ const removeItems = (id: number) => {
             </div>
           </TransitionGroup>
         </div>
+        <div>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam non ipsum, sint sit, asperiores quaerat quisquam, ex molestias odit est eveniet doloremque. Sapiente ullam ratione sed sequi dolore? Consectetur, quia.</div>
       </div>
     </Transition>
   </Teleport>

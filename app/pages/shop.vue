@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import useBasic from "../composables/useBasic";
+import { useBasic, useDesign } from "../composables/useBasic";
 
+const store = useUserStore()
 const help = useBasic();
+const design = useDesign()
 const searchQuery = ref("");
 const sortOrder = ref("default");
 const activeCategory = ref("All");
@@ -17,7 +19,7 @@ const categories = [
 
 // ── Computed: filter + sort ────────────────────────────────────────────────
 const filteredProducts = computed(() => {
-  let list = help.products.value.filter((p) => {
+  let list = store.products.filter((p) => {
     const matchCat =
       activeCategory.value === "All" || p.category === activeCategory.value;
     const matchSearch = p.name.toLowerCase().includes(searchQuery.value);
@@ -109,10 +111,12 @@ function resetFilters() {
           filteredProducts.length !== 1 ? "s" : ""
         }}
       </p>
-
+      
       <!-- Product grid -->
+      <div v-if="store.isLoading" class="text-center">Loading Proucts....</div>
+      <div v-else-if="store.isError" class="text-center">Failed to load items ❌❌❌</div>
       <div
-        v-if="filteredProducts.length > 0"
+        v-else
         class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
       >
         <div
@@ -123,7 +127,7 @@ function resetFilters() {
           <!-- Product image area -->
           <div
             class="relative h-36 flex items-center justify-center text-5xl"
-            :class="product.bg"
+            :class="design.getBackgroundClass(product.category) + ' text-white/80'"
           >
             {{ product.emoji }}
             <span
@@ -138,7 +142,7 @@ function resetFilters() {
           <div class="p-4 flex flex-col flex-1">
             <span
               class="text-xs font-semibold mb-1"
-              :class="product.stockClass"
+              :class="design.getStockClass(product.stock)"
               >{{ product.stock }}</span
             >
             <h3 class="font-syne font-bold text-sm leading-snug mb-1">
@@ -159,9 +163,8 @@ function resetFilters() {
           </div>
         </div>
       </div>
-
       <!-- Empty state -->
-      <div v-else class="text-center py-24">
+      <div v-if="!store.isLoading && !store.isError && filteredProducts.length === 0" class="text-center py-24">
         <div class="text-5xl mb-4">🔍</div>
         <p class="font-syne font-bold text-lg text-gray-300">
           No products found

@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import useBasic from "../composables/useBasic";
+import {useBasic, useDesign} from "../composables/useBasic";
 
+const store = useUserStore()
 const help = useBasic();
+const design = useDesign();
 const stats = [
   { value: "5k+", label: "Products" },
   { value: "98%", label: "Happy customers" },
@@ -231,14 +233,14 @@ const categories = [
 
         <div class="grid md:grid-cols-3 gap-6">
           <div
-            v-for="product in help.products.value.splice(0, 3)"
+            v-for="product in store.products.splice(0, 3)"
             :key="product.name"
             class="card-hover bg-gray-900 rounded-2xl overflow-hidden border transition-all border-amber-400/30"
           >
             <div class="relative">
               <div
                 class="h-48 flex items-center justify-center text-6xl"
-                :class="product.bg"
+                :class="design.getBackgroundClass(product.category)"
               >
                 {{ product.emoji }}
               </div>
@@ -252,7 +254,7 @@ const categories = [
             <div class="p-5">
               <span
                 class="text-xs px-2 py-0.5 rounded-full font-semibold"
-                :class="product.stockClass"
+                :class="design.getStockClass(product.stock)"
               >
                 {{ product.stock }}
               </span>
@@ -266,7 +268,6 @@ const categories = [
                 }}</span>
                 <button
                   class="bg-amber-400 hover:bg-amber-300 text-gray-900 text-xs font-bold px-4 py-2 rounded-full transition-colors"
-                  @click="help.addToCart(product)"
                 >
                   Add to cart
                 </button>

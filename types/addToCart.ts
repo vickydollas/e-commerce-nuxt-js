@@ -14,3 +14,14 @@ export interface jwtUserInfo {
   id: number
   username: string
 }
+
+export interface ProductType {
+  id: number
+  name: string
+  category: string
+  price: number
+  emoji: string
+  badge: string | null
+  stock: string
+  quantity: number
+}
