@@ -1,10 +1,13 @@
 import { useUserStore } from "~/stores/userStore";
+import type { jwtUserInfo } from "~~/types/addToCart";
 
 export default function useAuth() {
   const USER_STORE = useUserStore();
   const toast = useToast();
   const isLoading = ref<boolean>(false);
   const error = ref<string | null>(null);
+  const storedToken = useCookie("jwt_token");
+  const userDetail = ref<jwtUserInfo | null>(null);
 
   const signIn = async (username: string, password: string) => {
     try {
@@ -48,18 +51,37 @@ export default function useAuth() {
       toast.success({ title: "Sucess", message: "Signup successful" });
       await navigateTo("/login");
     }
-    if (!res) return toast.error({
+    if (!res)
+      return toast.error({
         title: "error",
         message: "User registration failed",
       });
     username = "";
     password = "";
   };
+  const getuserDetail = async () => {
+    const token = useCookie("jwt_token");
+    if (token) {
+      const res = await $fetch("/api/auth/verifyToken", {
+        method: "POST",
+        body: { token: token.value },
+      });
+      if (!res) return;
+
+      userDetail.value = res.user;
+    }
+  };
+  onMounted(() => {
+    getuserDetail();
+  });
 
   return {
     signIn,
     signUp,
     error,
     isLoading,
+    storedToken,
+    getuserDetail,
+    userDetail
   };
 }

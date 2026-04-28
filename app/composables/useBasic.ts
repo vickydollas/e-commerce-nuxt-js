@@ -46,6 +46,9 @@ export function useBasic() {
   const subtotal = computed(() =>{
     return cartArray.value.reduce((s, i) => s + i.price * i.quantity, 0)
   })
+  const shipping = computed(() => subtotal.value >= 300 ? 0 : 15)
+  const tax = computed(() => subtotal.value * 0.033)
+  const total = computed(() => subtotal.value + shipping.value + tax.value)
   return {
     mobileMenuOpen,
     cartCount,
@@ -56,7 +59,10 @@ export function useBasic() {
     removeFromCart,
     increaseQuantity,
     decreaseQuantity,
-    subtotal
+    subtotal,
+    shipping,
+    tax,
+    total
   };
 }
 export function useDesign() {

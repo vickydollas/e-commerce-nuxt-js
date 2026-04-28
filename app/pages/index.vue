@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import {useBasic, useDesign} from "../composables/useBasic";
+// import {useBasic, useDesign} from "../composables/useBasic";
 
 const store = useUserStore()
 const help = useBasic();
 const design = useDesign();
+const { storedToken, userDetail } = useAuth();
 const stats = [
   { value: "5k+", label: "Products" },
   { value: "98%", label: "Happy customers" },
@@ -86,6 +87,8 @@ const categories = [
     <section
       class="hero-bg min-h-screen flex items-center pt-20 overflow-hidden relative"
     >
+      
+      <!-- <p class="absolute top-20 left-60">yyyyyyyyyyyyyyyyyyyyyy</p> -->
       <!-- Decorative twinkling stars -->
       <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <div
@@ -115,7 +118,7 @@ const categories = [
             </svg>
             <span
               class="text-amber-400 text-xs font-semibold tracking-widest uppercase"
-              >New arrivals weekly</span
+              >{{ userDetail?.username ? `Welcome, ${userDetail.username} to Rising Star!` : 'New arrivals weekly' }}</span
             >
           </div>
 

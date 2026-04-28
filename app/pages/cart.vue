@@ -2,6 +2,9 @@
 import { ref, computed, onMounted } from "vue";
 import { useBasic } from "../composables/useBasic";
 
+definePageMeta({
+  middleware: "auth",
+});
 const {
   cartArray,
   removeFromCart,
@@ -9,12 +12,16 @@ const {
   decreaseQuantity,
   initializeCart,
   subtotal,
+  tax,
+  total,
+  shipping
 } = useBasic();
 
 onMounted(() => {
   initializeCart();
 });
-
+const toast = useToast();
+const token = useCookie("jwt_token");
 const form = ref({
   firstName: "",
   lastName: "",
@@ -48,15 +55,20 @@ const formatExpiry = (e: Event) => {
   input.value = v;
   form.value.expiry = v;
 };
-
-const shipping = computed(() => (subtotal.value >= 150 ? 0 : 9.99));
-const tax = computed(() => subtotal.value * 0.075);
-const total = computed(() => subtotal.value + shipping.value + tax.value);
-
 const step = ref<1 | 2 | 3>(1);
 const placing = ref(false);
 const placed = ref(false);
-
+const validateStep1 = () => {
+    if(!token.value) {
+        navigateTo('/login')
+        toast.error({
+            title: 'Login Required',
+            message: 'Please log in to proceed with the checkout.'
+        })
+        return
+    }
+    step.value = 2
+}
 const placeOrder = async () => {
   placing.value = true;
   await new Promise((r) => setTimeout(r, 1800));
@@ -249,7 +261,7 @@ const placeOrder = async () => {
 
               <button
                 v-if="cartArray.length"
-                @click="step = 2"
+                @click="validateStep1()"
                 class="w-full mt-4 bg-amber-400 hover:bg-amber-300 text-gray-900 font-syne font-bold px-6 py-3 rounded-full transition-colors text-center cursor-pointer"
               >
                 Continue to Delivery →

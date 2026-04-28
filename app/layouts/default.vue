@@ -1,22 +1,11 @@
 <script setup lang="ts">
-// import { useRoute } from 'vue-router'
 import {useBasic} from "../composables/useBasic";
-import type { jwtUserInfo } from "~~/types/addToCart";
 
-const user = useCookie("jwt_token");
-const userDetail = ref<jwtUserInfo | null>(null);
-onMounted(async () => {
-  const token = useCookie("jwt_token");
-  if (token) {
-  const res = await $fetch("/api/auth/verifyToken", {
-    method: "POST",
-    body: { token: token.value },
-  });
-  if (!res) return;
-
-
-  userDetail.value = res.user;
-}
+const { storedToken, getuserDetail, userDetail } = useAuth();
+onMounted(() => {
+  if (storedToken.value) {
+    getuserDetail();
+  }
 });
 const logout = ref(false);
 const toggleLogout = () => (logout.value = !logout.value);
@@ -33,7 +22,7 @@ const isActive = (routePath: string): boolean => {
 </script>
 <template>
   <div>
-    <div v-if="user && logout">
+    <div v-if="storedToken && logout">
       <LogoutModal @cancel="closeLogout" />
     </div>
     <nav
@@ -84,8 +73,8 @@ const isActive = (routePath: string): boolean => {
         <!-- Right actions -->
         <div class="flex items-center gap-3">
           <!-- Cart -->
-          <button
-            @click="openCart"
+          <NuxtLink
+            to="/cart"
             class="relative p-2 text-gray-400 hover:text-amber-400 transition-colors"
           >
             <svg
@@ -105,16 +94,16 @@ const isActive = (routePath: string): boolean => {
             >
               {{ help.cartArray.value.length }}
             </span>
-          </button>
+          </NuxtLink>
           <button
             @click="toggleLogout"
-            v-if="user"
+            v-if="storedToken"
             class="bg-amber-400 hover:bg-amber-300 text-gray-900 text-sm font-bold px-5 py-2 rounded-full transition-colors font-syne"
           >
             Sign out
           </button>
           <NuxtLink
-            v-if="!user"
+            v-if="!storedToken"
             to="/login"
             class="bg-amber-400 hover:bg-amber-300 text-gray-900 text-sm font-bold px-5 py-2 rounded-full transition-colors font-syne"
           >
