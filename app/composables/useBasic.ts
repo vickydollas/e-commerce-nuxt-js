@@ -3,13 +3,14 @@ import { useUserStore } from "../stores/userStore";
 import type { AddToCart, ProductType } from "../../types/addToCart";
 const mobileMenuOpen = ref(false);
 const cartCount = ref(0);
-const isCartOpen = ref(false);
 const cartArray = ref<ProductType[]>([]);
 export function useBasic() {
+  const isModalOpen = ref(false);
   // Sample product data
   const store = useUserStore();
+  // fix this onMounted issue where it runs before the store is populated with the cart data from the database
   function initializeCart() {
-    const storedCart = localStorage.getItem('cart');
+    const storedCart = localStorage.getItem("cart");
     if (storedCart) {
       cartArray.value = JSON.parse(storedCart);
     }
@@ -24,35 +25,42 @@ export function useBasic() {
     // console.log("Added to cart:", product.name);
     // console.log(cartArray.value);
   }
-  watch(cartArray, (newVal) => {
-    localStorage.setItem('cart', JSON.stringify(newVal))  
-  }, { deep: true })
+  watch(
+    cartArray,
+    (newVal) => {
+      localStorage.setItem("cart", JSON.stringify(newVal));
+    },
+    { deep: true },
+  );
   function removeFromCart(id: number) {
     cartArray.value = cartArray.value.filter((item) => item.id !== id);
   }
   function increaseQuantity(id: number) {
-    console.log(id)
-    const item = cartArray.value.find((f) => (f.id === id));
+    console.log(id);
+    const item = cartArray.value.find((f) => f.id === id);
     if (item) {
       item.quantity++;
     }
   }
   function decreaseQuantity(id: number) {
-    const item = cartArray.value.find((f) => (f.id === id));
+    const item = cartArray.value.find((f) => f.id === id);
     if (item) {
       item.quantity--;
     }
   }
-  const subtotal = computed(() =>{
-    return cartArray.value.reduce((s, i) => s + i.price * i.quantity, 0)
-  })
-  const shipping = computed(() => subtotal.value >= 300 ? 0 : 15)
-  const tax = computed(() => subtotal.value * 0.033)
-  const total = computed(() => subtotal.value + shipping.value + tax.value)
+  const subtotal = computed(() => {
+    return cartArray.value.reduce((s, i) => s + i.price * i.quantity, 0);
+  });
+  const shipping = computed(() => (subtotal.value >= 300 ? 0 : 15));
+  const tax = computed(() => subtotal.value * 0.033);
+  const total = computed(() => subtotal.value + shipping.value + tax.value);
+  // modal logic for opening and closing the profile
+  const openCart = () => {
+    isModalOpen.value = !isModalOpen.value;
+  };
   return {
     mobileMenuOpen,
     cartCount,
-    isCartOpen,
     cartArray,
     initializeCart,
     addToCart,
@@ -62,7 +70,10 @@ export function useBasic() {
     subtotal,
     shipping,
     tax,
-    total
+    total,
+    // modal logic
+    isModalOpen,
+    openCart,
   };
 }
 export function useDesign() {

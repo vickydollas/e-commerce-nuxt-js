@@ -72,7 +72,9 @@ export default function useAuth() {
     }
   };
   onMounted(() => {
-    getuserDetail();
+    if (storedToken.value) {
+      getuserDetail();
+    }
   });
 
   return {
