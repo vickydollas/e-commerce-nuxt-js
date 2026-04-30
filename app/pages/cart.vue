@@ -2,9 +2,6 @@
 import { ref, computed, onMounted } from "vue";
 import { useBasic } from "../composables/useBasic";
 
-definePageMeta({
-  middleware: "auth",
-});
 const {
   cartArray,
   removeFromCart,

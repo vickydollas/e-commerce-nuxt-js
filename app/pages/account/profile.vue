@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 
+definePageMeta({
+  middleware: "auth"
+})
+
 // ── Active sidebar section ────────────────────────────────────────────────────
 const activeNav = ref("profile");
 const sidebarOpen = ref(false);
