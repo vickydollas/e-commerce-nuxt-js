@@ -1,3 +1,4 @@
+
 import type { ProductType } from "~~/types/addToCart";
 
 export const useUserStore = defineStore("user", () => {

@@ -1,4 +1,5 @@
-<template>
+<template
+>
   <div class="bg-gray-950 text-white font-nunito min-h-screen flex flex-col">
     <!-- ========== MAIN ========== -->
     <div class="flex flex-1 items-center justify-center px-4 py-12 relative overflow-hidden">
@@ -241,7 +242,7 @@ const showPassword = ref(false)
 const isLoading    = ref(false)
 const loginSuccess = ref(false)
 const loginError   = ref('')
-const error = ref('')
+const error = ref('error')
 
 // ── Decorative background stars ────────────────────────────────────────────
 const bgStars = [
