@@ -106,7 +106,11 @@ const isActive = (routePath: string): boolean => {
             <p
               class="nav-link text-xs font-semibold text-amber-400 hover:text-white tracking-wide"
             >
-              {{ userDetail?.username ? `Welcome, ${userDetail.username}` : 'Profile' }}
+              {{
+                userDetail?.username
+                  ? `Welcome, ${userDetail.username}`
+                  : "Profile"
+              }}
             </p>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -124,6 +128,8 @@ const isActive = (routePath: string): boolean => {
           </div>
           <!-- profile dropdown -->
           <div
+            :ref="help.target"
+            @keyup.esc="help.isModalOpen.value = false"
             v-if="help.isModalOpen.value"
             class="min-h-[200px] absolute right-0 top-10 bg-gray-950/80 border border-white/10 rounded-lg py-4 w-60 flex flex-col gap-3"
           >
@@ -143,7 +149,10 @@ const isActive = (routePath: string): boolean => {
                 Sign in
               </NuxtLink>
             </div>
-            <NuxtLink to="/account/profile" class="flex items-center gap-3 cursor-pointer hover:bg-gray-900 p-3 rounded">
+            <NuxtLink
+              to="/account/profile"
+              class="flex items-center gap-3 cursor-pointer hover:bg-gray-900 p-3 rounded"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -157,6 +166,23 @@ const isActive = (routePath: string): boolean => {
               </svg>
               <p class="text-white">My Account</p>
             </NuxtLink>
+            <button class="flex items-center gap-3 cursor-pointer hover:bg-gray-900 p-3 rounded">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill="none"
+                  stroke="white"
+                  stroke-linejoin="round"
+                  d="M5 11.5h4M5 9h6M5 6.5h6m-5.5-4h-2v12h9v-12h-2m-5-1h5l-.625 2h-3.75z"
+                  stroke-width="1"
+                />
+              </svg>
+              <p class="text-white">Orders</p>
+            </button>
           </div>
           <!-- Mobile hamburger -->
           <button
@@ -170,7 +196,10 @@ const isActive = (routePath: string): boolean => {
               stroke-width="2"
               viewBox="0 0 24 24"
             >
-              <path v-if="!help.mobileMenuOpen.value" d="M4 6h16M4 12h16M4 18h16" />
+              <path
+                v-if="!help.mobileMenuOpen.value"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
               <path v-else d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>

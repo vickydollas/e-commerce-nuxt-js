@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
     if (!user) {
         throw createError({
             statusCode: 404,
-            message: 'user proflle not found'
+            message: 'User proflle not found'
         })
     }
     if (!(await compare(password, user.password))) {

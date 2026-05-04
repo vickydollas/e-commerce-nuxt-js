@@ -15,6 +15,7 @@
     "@pinia/nuxt": "^0.11.3",
     "@types/better-sqlite3": "^7.6.13",
     "@types/jsonwebtoken": "^9.0.10",
+    "@vueuse/nuxt": "^14.3.0",
     "dotenv": "^17.4.2",
     "drizzle-kit": "^0.31.10",
     "nuxt": "^4.4.2",

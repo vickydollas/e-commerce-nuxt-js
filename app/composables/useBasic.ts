@@ -1,6 +1,8 @@
 // import { ref } from "vue";
 import { useUserStore } from "../stores/userStore";
 import type { AddToCart, ProductType } from "../../types/addToCart";
+import { onClickOutside } from "@vueuse/core";
+
 const mobileMenuOpen = ref(false);
 const cartCount = ref(0);
 const cartArray = ref<ProductType[]>([]);
@@ -58,6 +60,34 @@ export function useBasic() {
   const openCart = () => {
     isModalOpen.value = !isModalOpen.value;
   };
+  // HANDLING CLICK EVENT FOR CLOSING MODAL
+  const target = ref<HTMLElement | null>(null);
+  const clickListener = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      isModalOpen.value = false
+    }
+  }
+  watch(isModalOpen, (isOpen) => {
+    if (isOpen) { window.addEventListener('keydown', clickListener)}
+    else { window.removeEventListener('keydown', clickListener)}
+  })
+  onUnmounted(() => window.removeEventListener('keydown', clickListener))
+  onClickOutside(target, () => (isModalOpen.value = false));
+  // const closeListener = (e: Event) => {
+  //   if (target.value && !target.value.contains(e.target as HTMLElement)) {
+  //     isModalOpen.value = false;
+  //   }
+  // };
+  // watch(isModalOpen, (isOpen) => {
+  //   if (isOpen) {
+  //     setTimeout(() => {
+  //       window.addEventListener("click", closeListener);
+  //     }, 0);
+  //   } else {
+  //     window.removeEventListener("click", closeListener);
+  //   }
+  // });
+  // onUnmounted(() => window.removeEventListener("click", closeListener));
   return {
     mobileMenuOpen,
     cartCount,
@@ -74,6 +104,8 @@ export function useBasic() {
     // modal logic
     isModalOpen,
     openCart,
+    // CLICK HANDLER
+    target,
   };
 }
 export function useDesign() {
