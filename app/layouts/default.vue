@@ -9,7 +9,7 @@ const closeLogout = () => (logout.value = false);
 const help = useBasic();
 const route = useRoute();
 const isActive = (routePath: string): boolean => {
-  // const route = useRoute()
+  const route = useRoute()
   return route.path === routePath;
 };
 </script>
@@ -131,7 +131,7 @@ const isActive = (routePath: string): boolean => {
             :ref="help.target"
             @keyup.esc="help.isModalOpen.value = false"
             v-if="help.isModalOpen.value"
-            class="min-h-[200px] absolute right-0 top-10 bg-gray-950/80 border border-white/10 rounded-lg py-4 w-60 flex flex-col gap-3"
+            class="min-h-[100px] absolute right-0 top-10 bg-gray-950/80 border border-white/10 rounded-lg py-4 w-52 flex flex-col gap-3"
           >
             <div class="flex justify-center mx-4">
               <button

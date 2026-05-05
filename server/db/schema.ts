@@ -1,9 +1,12 @@
 import { sqliteTable, int, text } from "drizzle-orm/sqlite-core";
 
+export const roles = ["USER", "ADMIN"] as const
+export type Role = (typeof roles)[number]
 export const loginTable = sqliteTable('logins', {
     id: int().primaryKey({autoIncrement: true}),
     username: text().notNull(),
-    password: text().notNull()
+    password: text().notNull(),
+    role: text().$type<Role>().default("USER").notNull()
 })
 
 export const cartTable = sqliteTable('cart', {
