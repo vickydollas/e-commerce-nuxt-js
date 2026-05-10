@@ -1,3 +1,132 @@
+<script setup lang="ts">
+import {useBasic} from '../composables/useBasic'
+
+const help = useBasic()
+const heroStars = [
+  { id: 1, style: 'top:64px;left:48px;width:6px;height:6px;background:#fcd34d;animation-delay:0s' },
+  { id: 2, style: 'top:128px;left:33%;width:4px;height:4px;background:white;animation-delay:0.8s' },
+  { id: 3, style: 'top:80px;right:25%;width:6px;height:6px;background:#fde68a;animation-delay:1.4s' },
+  { id: 4, style: 'bottom:80px;right:64px;width:4px;height:4px;background:white;animation-delay:0.4s' },
+  { id: 5, style: 'top:160px;right:48px;width:4px;height:4px;background:#fcd34d;animation-delay:1.9s' },
+]
+
+const stats = [
+  { value: '1,000+', label: 'Happy customers' },
+  { value: '5,000+', label: 'Products listed' },
+  { value: '98%',    label: 'Satisfaction rate' },
+  { value: '24/7',   label: 'Customer support' },
+]
+
+const milestones = [
+  {
+    tag: 'The Spark',
+    icon: '💡',
+    title: "A founder's bad online purchase",
+    body: 'Our founder ordered a set of home appliances online in 2022. What arrived was nothing like what was advertised — cheap materials, wrong sizing, and a customer service line that went unanswered for weeks.',
+  },
+  {
+    tag: 'The Research',
+    icon: '🔍',
+    title: 'Talking to hundreds of shoppers',
+    body: "We spent months speaking to everyday online shoppers. The pattern was consistent — people didn't lack options, they lacked confidence. They wanted a store they could trust, not just use.",
+  },
+  {
+    tag: 'The Build',
+    icon: '🚀',
+    title: 'RisingStar is born',
+    body: 'In 2023, we launched RisingStar with one goal: be the platform we wished existed. Every decision since — from product curation to packaging — has been made with the customer\'s trust in mind.',
+  },
+]
+
+const coreValues = [
+  {
+    icon: '🏆',
+    iconBg: 'bg-amber-400/10',
+    title: 'Quality without compromise',
+    body: 'Every product on RisingStar passes our internal quality check before it reaches a customer\'s cart. We work directly with trusted suppliers who share our obsession with durability and finish.',
+  },
+  {
+    icon: '🌱',
+    iconBg: 'bg-green-400/10',
+    title: 'Sustainability first',
+    body: 'We\'re committed to reducing our footprint. Our packaging is 100% recyclable, we partner with energy-efficient suppliers, and we\'re working towards a carbon-neutral delivery network by 2027.',
+  },
+  {
+    icon: '🤝',
+    iconBg: 'bg-blue-400/10',
+    title: 'Community over transactions',
+    body: 'RisingStar isn\'t just a store — it\'s a growing community of smart shoppers. We listen, respond, and constantly improve based on feedback from the people who shop with us every day.',
+  },
+  {
+    icon: '💎',
+    iconBg: 'bg-purple-400/10',
+    title: 'Honest pricing',
+    body: 'No hidden fees. No inflated "before discount" prices. What you see is what you pay — and we guarantee you won\'t find better value for the same quality anywhere else.',
+  },
+  {
+    icon: '⚡',
+    iconBg: 'bg-rose-400/10',
+    title: 'Speed & reliability',
+    body: 'We\'ve built our logistics to be fast and dependable. Orders placed before 2pm ship same day, and our real-time tracking keeps you informed every step of the way.',
+  },
+  {
+    icon: '🔒',
+    iconBg: 'bg-teal-400/10',
+    title: 'Safe & secure shopping',
+    body: 'Your data and your money are protected. We use industry-standard encryption for every transaction and will never sell or share your personal information.',
+  },
+]
+
+const communityPoints = [
+  'Active community forum with product reviews and buying guides',
+  'Loyalty rewards for every purchase — earn stars, redeem discounts',
+  'Monthly new arrivals curated by community votes',
+  'Referral programme — bring a friend, both of you save',
+]
+
+const testimonials = [
+  {
+    name: 'Adaeze O.',
+    initials: 'AO',
+    location: 'Lagos, Nigeria',
+    avatarClass: 'bg-amber-400/20 text-amber-400',
+    text: '"I\'ve ordered from so many sites that disappointed me. RisingStar was the first time what arrived actually matched what I ordered. Incredible."',
+  },
+  {
+    name: 'Kofi E.',
+    initials: 'KE',
+    location: 'Accra, Ghana',
+    avatarClass: 'bg-blue-400/20 text-blue-400',
+    text: '"The air fryer I got is still going strong after 8 months. Quality is real — not that flimsy stuff you see elsewhere. Fast delivery too."',
+  },
+  {
+    name: 'Taiwo A.',
+    initials: 'TA',
+    location: 'Abuja, Nigeria',
+    avatarClass: 'bg-green-400/20 text-green-400',
+    text: '"Customer support actually picked up my call and resolved my issue in under 10 minutes. That alone made me a loyal customer forever."',
+  },
+]
+
+const sustainabilityPledges = [
+  {
+    icon: '♻️',
+    title: '100% recyclable packaging',
+    body: 'Every box, every bag, every insert — designed to be recycled or composted. No excess plastic. No unnecessary waste.',
+  },
+  {
+    icon: '🌍',
+    title: 'Carbon-neutral goal by 2027',
+    body: "We're actively offsetting our delivery emissions and working with green logistics partners to reach full carbon neutrality within two years.",
+  },
+  {
+    icon: '🤲',
+    title: 'Ethical supplier standards',
+    body: 'We only partner with suppliers who meet our ethical manufacturing standards — fair wages, safe conditions, and a commitment to reducing waste at source.',
+  },
+]
+</script>
+
 <template>
   <div class="bg-gray-950 text-white font-nunito min-h-screen">
     <!-- ========== HERO ========== -->
@@ -259,136 +388,6 @@
 
   </div>
 </template>
-
-<script setup lang="ts">
-import {useBasic} from '../composables/useBasic'
-
-const help = useBasic()
-const heroStars = [
-  { id: 1, style: 'top:64px;left:48px;width:6px;height:6px;background:#fcd34d;animation-delay:0s' },
-  { id: 2, style: 'top:128px;left:33%;width:4px;height:4px;background:white;animation-delay:0.8s' },
-  { id: 3, style: 'top:80px;right:25%;width:6px;height:6px;background:#fde68a;animation-delay:1.4s' },
-  { id: 4, style: 'bottom:80px;right:64px;width:4px;height:4px;background:white;animation-delay:0.4s' },
-  { id: 5, style: 'top:160px;right:48px;width:4px;height:4px;background:#fcd34d;animation-delay:1.9s' },
-]
-
-const stats = [
-  { value: '1,000+', label: 'Happy customers' },
-  { value: '5,000+', label: 'Products listed' },
-  { value: '98%',    label: 'Satisfaction rate' },
-  { value: '24/7',   label: 'Customer support' },
-]
-
-const milestones = [
-  {
-    tag: 'The Spark',
-    icon: '💡',
-    title: "A founder's bad online purchase",
-    body: 'Our founder ordered a set of home appliances online in 2022. What arrived was nothing like what was advertised — cheap materials, wrong sizing, and a customer service line that went unanswered for weeks.',
-  },
-  {
-    tag: 'The Research',
-    icon: '🔍',
-    title: 'Talking to hundreds of shoppers',
-    body: "We spent months speaking to everyday online shoppers. The pattern was consistent — people didn't lack options, they lacked confidence. They wanted a store they could trust, not just use.",
-  },
-  {
-    tag: 'The Build',
-    icon: '🚀',
-    title: 'RisingStar is born',
-    body: 'In 2023, we launched RisingStar with one goal: be the platform we wished existed. Every decision since — from product curation to packaging — has been made with the customer\'s trust in mind.',
-  },
-]
-
-const coreValues = [
-  {
-    icon: '🏆',
-    iconBg: 'bg-amber-400/10',
-    title: 'Quality without compromise',
-    body: 'Every product on RisingStar passes our internal quality check before it reaches a customer\'s cart. We work directly with trusted suppliers who share our obsession with durability and finish.',
-  },
-  {
-    icon: '🌱',
-    iconBg: 'bg-green-400/10',
-    title: 'Sustainability first',
-    body: 'We\'re committed to reducing our footprint. Our packaging is 100% recyclable, we partner with energy-efficient suppliers, and we\'re working towards a carbon-neutral delivery network by 2027.',
-  },
-  {
-    icon: '🤝',
-    iconBg: 'bg-blue-400/10',
-    title: 'Community over transactions',
-    body: 'RisingStar isn\'t just a store — it\'s a growing community of smart shoppers. We listen, respond, and constantly improve based on feedback from the people who shop with us every day.',
-  },
-  {
-    icon: '💎',
-    iconBg: 'bg-purple-400/10',
-    title: 'Honest pricing',
-    body: 'No hidden fees. No inflated "before discount" prices. What you see is what you pay — and we guarantee you won\'t find better value for the same quality anywhere else.',
-  },
-  {
-    icon: '⚡',
-    iconBg: 'bg-rose-400/10',
-    title: 'Speed & reliability',
-    body: 'We\'ve built our logistics to be fast and dependable. Orders placed before 2pm ship same day, and our real-time tracking keeps you informed every step of the way.',
-  },
-  {
-    icon: '🔒',
-    iconBg: 'bg-teal-400/10',
-    title: 'Safe & secure shopping',
-    body: 'Your data and your money are protected. We use industry-standard encryption for every transaction and will never sell or share your personal information.',
-  },
-]
-
-const communityPoints = [
-  'Active community forum with product reviews and buying guides',
-  'Loyalty rewards for every purchase — earn stars, redeem discounts',
-  'Monthly new arrivals curated by community votes',
-  'Referral programme — bring a friend, both of you save',
-]
-
-const testimonials = [
-  {
-    name: 'Adaeze O.',
-    initials: 'AO',
-    location: 'Lagos, Nigeria',
-    avatarClass: 'bg-amber-400/20 text-amber-400',
-    text: '"I\'ve ordered from so many sites that disappointed me. RisingStar was the first time what arrived actually matched what I ordered. Incredible."',
-  },
-  {
-    name: 'Kofi E.',
-    initials: 'KE',
-    location: 'Accra, Ghana',
-    avatarClass: 'bg-blue-400/20 text-blue-400',
-    text: '"The air fryer I got is still going strong after 8 months. Quality is real — not that flimsy stuff you see elsewhere. Fast delivery too."',
-  },
-  {
-    name: 'Taiwo A.',
-    initials: 'TA',
-    location: 'Abuja, Nigeria',
-    avatarClass: 'bg-green-400/20 text-green-400',
-    text: '"Customer support actually picked up my call and resolved my issue in under 10 minutes. That alone made me a loyal customer forever."',
-  },
-]
-
-const sustainabilityPledges = [
-  {
-    icon: '♻️',
-    title: '100% recyclable packaging',
-    body: 'Every box, every bag, every insert — designed to be recycled or composted. No excess plastic. No unnecessary waste.',
-  },
-  {
-    icon: '🌍',
-    title: 'Carbon-neutral goal by 2027',
-    body: "We're actively offsetting our delivery emissions and working with green logistics partners to reach full carbon neutrality within two years.",
-  },
-  {
-    icon: '🤲',
-    title: 'Ethical supplier standards',
-    body: 'We only partner with suppliers who meet our ethical manufacturing standards — fair wages, safe conditions, and a commitment to reducing waste at source.',
-  },
-]
-</script>
-
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Nunito:wght@400;500;600&display=swap');
 

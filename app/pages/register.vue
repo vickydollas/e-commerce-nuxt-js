@@ -1,3 +1,93 @@
+<script setup lang="ts">
+import { ref, reactive } from "vue";
+import { useRouter } from "vue-router";
+
+definePageMeta({
+  layout: false,
+});
+const router = useRouter();
+
+// ── Form state ─────────────────────────────────────────────────────────────
+const form = reactive({
+  username: "",
+  password: "",
+  remember: false,
+});
+
+const errors = reactive({
+  username: "",
+  password: "",
+});
+
+const showPassword = ref(false);
+const isLoading = ref(false);
+const loginSuccess = ref(false);
+const loginError = ref("");
+
+// ── Decorative background stars ────────────────────────────────────────────
+const bgStars = [
+  {
+    id: 1,
+    style:
+      "top:64px;left:48px;width:6px;height:6px;background:#fcd34d;animation-delay:0s",
+  },
+  {
+    id: 2,
+    style:
+      "top:33%;left:32px;width:4px;height:4px;background:white;animation-delay:0.7s",
+  },
+  {
+    id: 3,
+    style:
+      "top:80px;right:80px;width:6px;height:6px;background:#fde68a;animation-delay:1.3s",
+  },
+  {
+    id: 4,
+    style:
+      "bottom:128px;right:48px;width:4px;height:4px;background:white;animation-delay:0.4s",
+  },
+  {
+    id: 5,
+    style:
+      "bottom:80px;left:25%;width:6px;height:6px;background:#fcd34d;animation-delay:1.8s",
+  },
+  {
+    id: 6,
+    style:
+      "top:50%;right:25%;width:4px;height:4px;background:white;animation-delay:1s",
+  },
+];
+
+// ── Validation ─────────────────────────────────────────────────────────────
+function validate() {
+  let valid = true;
+  errors.username = "";
+  errors.password = "";
+
+  if (!form.username.trim()) {
+    errors.username = "Please enter your username.";
+    valid = false;
+  }
+  if (!form.password.trim()) {
+    errors.password = "Please enter your password.";
+    valid = false;
+  } else if (form.password.length < 6) {
+    errors.password = "Password must be at least 6 characters.";
+    valid = false;
+  }
+
+  return valid;
+}
+// ── Submit handler ─────────────────────────────────────────────────────────
+async function handleLogin() {
+    // if (form.password) {
+        
+    // }
+  const { signUp } = useAuth();
+  signUp(form.username, form.password)
+}
+</script>
+
 <template>
   <div class="bg-gray-950 text-white font-nunito min-h-screen flex flex-col">
     <div
@@ -244,97 +334,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref, reactive } from "vue";
-import { useRouter } from "vue-router";
-
-definePageMeta({
-  layout: false,
-});
-const router = useRouter();
-
-// ── Form state ─────────────────────────────────────────────────────────────
-const form = reactive({
-  username: "",
-  password: "",
-  remember: false,
-});
-
-const errors = reactive({
-  username: "",
-  password: "",
-});
-
-const showPassword = ref(false);
-const isLoading = ref(false);
-const loginSuccess = ref(false);
-const loginError = ref("");
-
-// ── Decorative background stars ────────────────────────────────────────────
-const bgStars = [
-  {
-    id: 1,
-    style:
-      "top:64px;left:48px;width:6px;height:6px;background:#fcd34d;animation-delay:0s",
-  },
-  {
-    id: 2,
-    style:
-      "top:33%;left:32px;width:4px;height:4px;background:white;animation-delay:0.7s",
-  },
-  {
-    id: 3,
-    style:
-      "top:80px;right:80px;width:6px;height:6px;background:#fde68a;animation-delay:1.3s",
-  },
-  {
-    id: 4,
-    style:
-      "bottom:128px;right:48px;width:4px;height:4px;background:white;animation-delay:0.4s",
-  },
-  {
-    id: 5,
-    style:
-      "bottom:80px;left:25%;width:6px;height:6px;background:#fcd34d;animation-delay:1.8s",
-  },
-  {
-    id: 6,
-    style:
-      "top:50%;right:25%;width:4px;height:4px;background:white;animation-delay:1s",
-  },
-];
-
-// ── Validation ─────────────────────────────────────────────────────────────
-function validate() {
-  let valid = true;
-  errors.username = "";
-  errors.password = "";
-
-  if (!form.username.trim()) {
-    errors.username = "Please enter your username.";
-    valid = false;
-  }
-  if (!form.password.trim()) {
-    errors.password = "Please enter your password.";
-    valid = false;
-  } else if (form.password.length < 6) {
-    errors.password = "Password must be at least 6 characters.";
-    valid = false;
-  }
-
-  return valid;
-}
-// ── Submit handler ─────────────────────────────────────────────────────────
-async function handleLogin() {
-    // if (form.password) {
-        
-    // }
-  const { signUp } = useAuth();
-  signUp(form.username, form.password)
-}
-</script>
-
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Nunito:wght@400;500;600&display=swap");
 
