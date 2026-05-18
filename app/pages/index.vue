@@ -233,8 +233,8 @@ const categories = [
             >View all →</RouterLink
           >
         </div>
-
-        <div class="grid md:grid-cols-3 gap-6">
+        <div v-if="store.isLoading">Loading products...</div>
+        <div v-else class="grid md:grid-cols-3 gap-6">
           <div
             v-for="product in store.products.splice(0, 3)"
             :key="product.name"
@@ -270,6 +270,7 @@ const categories = [
                   product.price
                 }}</span>
                 <button
+                  @click="help.addToCart(product)"
                   class="bg-amber-400 hover:bg-amber-300 text-gray-900 text-xs font-bold px-4 py-2 rounded-full transition-colors"
                 >
                   Add to cart

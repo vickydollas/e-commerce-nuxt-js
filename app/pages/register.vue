@@ -5,6 +5,7 @@ import { useRouter } from "vue-router";
 definePageMeta({
   layout: false,
 });
+const { signUp } = useAuth();
 const router = useRouter();
 
 // ── Form state ─────────────────────────────────────────────────────────────
@@ -80,10 +81,9 @@ function validate() {
 }
 // ── Submit handler ─────────────────────────────────────────────────────────
 async function handleLogin() {
-    // if (form.password) {
-        
-    // }
-  const { signUp } = useAuth();
+  // if (form.password) {
+
+  // }
   signUp(form.username, form.password)
 }
 </script>

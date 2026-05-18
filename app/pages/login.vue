@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import useAuth from '~/composables/useAuth'
 
 definePageMeta({
   layout: false
 })
 const router = useRouter()
+const { signIn } = useAuth()
 
 // ── Form state ─────────────────────────────────────────────────────────────
 const form = reactive({
@@ -62,7 +62,6 @@ async function handleLogin() {
   loginSuccess.value = false
 
   // if (!validate()) return
-const { signIn } = useAuth()
 signIn(form.username, form.password)
 }
 </script>

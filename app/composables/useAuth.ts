@@ -9,6 +9,12 @@ export default function useAuth() {
   const storedToken = useCookie("jwt_token");
   const userDetail = ref<jwtUserInfo | null>(null);
 
+  onMounted(() => {
+    if (!storedToken.value?.length) {
+      getuserDetail();
+    }
+  });
+
   const signIn = async (username: string, password: string) => {
     try {
       const res = await $fetch("/api/auth/login", {
@@ -71,11 +77,6 @@ export default function useAuth() {
       userDetail.value = res.user;
     }
   };
-  onMounted(() => {
-    if (storedToken.value) {
-      getuserDetail();
-    }
-  });
 
   return {
     signIn,

@@ -1,4 +1,3 @@
-
 import type { ProductType } from "~~/types/addToCart";
 
 export const useUserStore = defineStore("user", () => {
@@ -20,14 +19,12 @@ export const useUserStore = defineStore("user", () => {
       isLoading.value = false;
     }
   };
-  onMounted(() => {
-    getProducts();
-  });
+  getProducts();
   return {
     user,
     isLoggedIn,
     products,
     isLoading,
-    isError
+    isError,
   };
 });
